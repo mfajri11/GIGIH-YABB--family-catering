@@ -27,21 +27,21 @@ ActiveRecord::Schema.define(version: 2022_04_20_064550) do
   end
 
   create_table "menu_item_categories", force: :cascade do |t|
-    t.integer "menuItem_id", null: false
+    t.integer "menu_item_id", null: false
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_menu_item_categories_on_category_id"
-    t.index ["menuItem_id"], name: "index_menu_item_categories_on_menuItem_id"
+    t.index ["menu_item_id"], name: "index_menu_item_categories_on_menu_item_id"
   end
 
   create_table "menu_item_orders", force: :cascade do |t|
-    t.integer "menuItem_id", null: false
+    t.integer "menu_item_id", null: false
     t.integer "order_id", null: false
     t.integer "qty"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["menuItem_id"], name: "index_menu_item_orders_on_menuItem_id"
+    t.index ["menu_item_id"], name: "index_menu_item_orders_on_menu_item_id"
     t.index ["order_id"], name: "index_menu_item_orders_on_order_id"
   end
 
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2022_04_20_064550) do
   end
 
   add_foreign_key "menu_item_categories", "categories"
-  add_foreign_key "menu_item_categories", "menuItems"
-  add_foreign_key "menu_item_orders", "menuItems"
+  add_foreign_key "menu_item_categories", "menu_items"
+  add_foreign_key "menu_item_orders", "menu_items"
   add_foreign_key "menu_item_orders", "orders"
 end
