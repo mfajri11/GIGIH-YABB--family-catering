@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :menu_item_order do
-    menuItem { nil }
+    menu_item { nil }
     order { nil }
     qty { 1 }
   end

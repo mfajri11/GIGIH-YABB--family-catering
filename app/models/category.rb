@@ -3,4 +3,6 @@ class Category < ApplicationRecord
   has_many :menuItems, through: :menu_item_categories
 
   scope :names, ->{pluck(:name)}
+
+  validates :name, presence: true, uniqueness: true
 end
