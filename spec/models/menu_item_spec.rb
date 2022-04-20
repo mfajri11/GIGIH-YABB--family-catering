@@ -12,7 +12,7 @@ RSpec.describe MenuItem, type: :model do
     food1.valid?
     food2.valid?
     
-    expect(food1.errors[:price]).to include('must be greater than 0.01')
+    expect(food1.errors[:price]).to include('must be greater than or equal to 0.01')
     expect(food2).to be_valid
   end
 

@@ -5,6 +5,6 @@ class MenuItem < ApplicationRecord
   has_many :categories, through: :menu_item_categories
 
   validates :name, presence: true, uniqueness: true
-  validates :price, numericality: {only_float: true, greater_than: 0.01}
+  validates :price, numericality: {only_float: true, greater_than_or_equal_to: 0.01}
   validates :description, length: {maximum: 150}
 end
