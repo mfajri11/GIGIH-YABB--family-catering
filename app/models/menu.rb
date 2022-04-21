@@ -8,9 +8,6 @@ class Menu < ApplicationRecord
   validates :price, numericality: {only_float: true, greater_than_or_equal_to: 0.01}
   validates :description, length: {maximum: 150}
 
-  enum status: {
-    NEW: 0,
-    PAID: 1,
-    CANCELLED: 2
-  }
+  scope :prices, ->{pluck(:price)}
+  scope :names, ->{pluck(:name)}
 end
