@@ -1,6 +1,6 @@
 class Category < ApplicationRecord
-  has_many :menu_item_categories
-  has_many :menuItems, through: :menu_item_categories
+  has_many :menu_categories
+  has_many :menus, through: :menu_categories
 
   scope :names, ->{pluck(:name)}
 

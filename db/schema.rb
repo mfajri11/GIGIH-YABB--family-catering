@@ -26,26 +26,26 @@ ActiveRecord::Schema.define(version: 2022_04_20_064550) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "menu_item_categories", force: :cascade do |t|
-    t.integer "menu_item_id", null: false
+  create_table "menu_categories", force: :cascade do |t|
+    t.integer "menu_id", null: false
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_menu_item_categories_on_category_id"
-    t.index ["menu_item_id"], name: "index_menu_item_categories_on_menu_item_id"
+    t.index ["category_id"], name: "index_menu_categories_on_category_id"
+    t.index ["menu_id"], name: "index_menu_categories_on_menu_id"
   end
 
-  create_table "menu_item_orders", force: :cascade do |t|
-    t.integer "menu_item_id", null: false
+  create_table "menu_orders", force: :cascade do |t|
+    t.integer "menu_id", null: false
     t.integer "order_id", null: false
     t.integer "qty"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["menu_item_id"], name: "index_menu_item_orders_on_menu_item_id"
-    t.index ["order_id"], name: "index_menu_item_orders_on_order_id"
+    t.index ["menu_id"], name: "index_menu_orders_on_menu_id"
+    t.index ["order_id"], name: "index_menu_orders_on_order_id"
   end
 
-  create_table "menu_items", force: :cascade do |t|
+  create_table "menus", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.float "price"
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 2022_04_20_064550) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "menu_item_categories", "categories"
-  add_foreign_key "menu_item_categories", "menu_items"
-  add_foreign_key "menu_item_orders", "menu_items"
-  add_foreign_key "menu_item_orders", "orders"
+  add_foreign_key "menu_categories", "categories"
+  add_foreign_key "menu_categories", "menus"
+  add_foreign_key "menu_orders", "menus"
+  add_foreign_key "menu_orders", "orders"
 end

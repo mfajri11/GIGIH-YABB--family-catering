@@ -1,7 +1,7 @@
 class MenusController < ApplicationController
-  before_action :set_menu, only: %i[ show edit update destroy ]
+  # before_action :set_menu, only: %i[ show edit update destroy ]
   def index
-    @menus = MenuItem.all
+    @menus = Menu.all
   end
   
   def new
@@ -9,30 +9,35 @@ class MenusController < ApplicationController
 
   def create
     menu_params = get_menu_params
-    @menu = MenuItem.create(menu_params)
+    @menu = Menu.create(menu_params)
     respond_to do |format|
       if @menu.save
         format.html {redirect_to menu_path(@menu.id), notice: 'Menu was successfuly created'}
         format.json {render :show, status: :created, location: @menu}
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render :json, @menu.errors, status: :unprocessable_entity }
+        format.json { render json: @menu.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def show
+    @menu = Menu.find_by_id(params[:id])
+    respond_to do |format|
+      format.html {render :show, status: :ok}
+      format.json {render @menu, status: :created, location: @menu }
+    end
   end
 
   def edit
-    @menu = MenuItem.find_by_id(params[:id])
+    @menu = Menu.find_by_id(params[:id])
     render :edit
   end
 
   def update
     # puts params
     menu_params = get_menu_params
-    @menu = MenuItem.find_by_id(params[:id])
+    @menu = Menu.find_by_id(params[:id])
 
     if @menu.update(menu_params)
       redirect_to :menus
@@ -42,7 +47,7 @@ class MenusController < ApplicationController
   end
 
   def destroy
-    @menu = MenuItem.find_by_id(params[:id])
+    @menu = Menu.find_by_id(params[:id])
     @menu.destroy
     redirect_to menus_path
   end
@@ -50,7 +55,7 @@ class MenusController < ApplicationController
   private
   
   def get_menu_params
-    params.require(:menu_item).permit(:name, :description, :price)
+    params.require(:menu).permit(:name, :description, :price)
   end
   
 end
