@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe MenuItem, type: :model do
+RSpec.describe Menu, type: :model do
   it 'has valid factory' do
-    expect(FactoryBot.build(:menu_item)).to be_valid
+    expect(FactoryBot.build(:menu)).to be_valid
   end
 
   it 'has price greater than 0.01' do
-    food1 = FactoryBot.build(:menu_item, price: 0.0001)
-    food2 = FactoryBot.build(:menu_item, price: 1000.0)
+    food1 = FactoryBot.build(:menu, price: 0.0001)
+    food2 = FactoryBot.build(:menu, price: 1000.0)
     
     food1.valid?
     food2.valid?
@@ -17,8 +17,8 @@ RSpec.describe MenuItem, type: :model do
   end
 
   it 'is invalid with  duplicate name' do
-    food1 = FactoryBot.create(:menu_item, name:'Nasi Kucing')
-    food2 = FactoryBot.build(:menu_item, name:'Nasi Kucing')
+    food1 = FactoryBot.create(:menu, name:'Nasi Kucing')
+    food2 = FactoryBot.build(:menu, name:'Nasi Kucing')
     
     food2.valid?
 
@@ -26,7 +26,7 @@ RSpec.describe MenuItem, type: :model do
   end
 
   it 'is invalid if description has more than 150 characters' do
-    food = FactoryBot.build(:menu_item, description: '!'*151)
+    food = FactoryBot.build(:menu, description: '!'*151)
     food.valid?
     expect(food.errors[:description]).to include('is too long (maximum is 150 characters)')
   end

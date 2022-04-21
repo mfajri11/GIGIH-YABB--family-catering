@@ -25,7 +25,7 @@ class MenusController < ApplicationController
     @menu = Menu.find_by_id(params[:id])
     respond_to do |format|
       format.html {render :show, status: :ok}
-      format.json {render @menu, status: :created, location: @menu }
+      format.json {render @menu, status: :ok, location: @menu }
     end
   end
 
@@ -35,21 +35,32 @@ class MenusController < ApplicationController
   end
 
   def update
-    # puts params
     menu_params = get_menu_params
     @menu = Menu.find_by_id(params[:id])
 
-    if @menu.update(menu_params)
-      redirect_to :menus
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @menu.update(menu_params)
+        format.html {redirect_to @menu, status: :see_other, notice: 'Menu was successfuly udpated'}
+        format.json {render :update, status: :no_content}
+      else
+        format.html{render :edit, status: :unprocessable_entity}
+        format.json {render @menu.errors, status: :unprocessable_entity}
+      end
     end
   end
 
   def destroy
     @menu = Menu.find_by_id(params[:id])
-    @menu.destroy
-    redirect_to menus_path
+    respond_to do |format|
+      if @menu.destroy
+        format.html {redirect_to menus_path, notice: 'Menu was successfuly deleted'}
+        format.json {render :delete, status: :no_content}
+      else
+        format.json {render @menu.errors, status: :unprocessable_entity}
+      end
+    end
+    
+    
   end
 
   private
