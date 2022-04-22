@@ -17,6 +17,35 @@ class Order < ApplicationRecord
   def calculate_total!
     write_attribute(:total, total_helper)
   end
+
+  def join_all_menus
+    menus.names.join(',')
+  end
+
+  def self.clean_unpaid_orders
+    where.not(status: :PAID)
+    .update_all(status: :CANCELLED)
+  end
+
+  def self.report_daily
+    where(order_date: DateTime.now.in_time_zone.beginning_of_day..DateTime.now.in_time_zone.end_of_day)
+  end
+
+  def self.get_price
+    all.map{|order| order.menus.prices.sum}
+  end
+
+  # def self.get_report_by_email(:email)
+  # endS
+
+  def self.get_report_by_price(price)
+    where(total: price..)
+  end
+
+  def self_get_report_by_range(start, end_)
+    where(order_date: start..end_)
+  end
+  
   
   private
   def total_helper

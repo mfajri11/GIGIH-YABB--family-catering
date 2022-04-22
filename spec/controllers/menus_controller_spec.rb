@@ -64,6 +64,20 @@ RSpec.describe MenusController do
         expect(response).to redirect_to @menu
       end
     end
+
+    context 'with invalid attributes' do
+      it 'does not update @menu' do
+        patch :update, params: {id: @menu, menu: attributes_for(:invalid_menu, price:'hahaha')}
+        expect(@menu.price).not_to eq('hahaha')
+      end
+
+      it 're-render to the edit template' do
+        patch :update, params: {id: @menu, menu: attributes_for(:invalid_menu)}
+          expect(assigns(:menu)).to eq @menu
+          expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+    
   end
   
   describe 'GET #index' do

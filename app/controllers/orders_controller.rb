@@ -10,53 +10,42 @@ class OrdersController < ApplicationController
   
   def create
     order_params = get_order_params
-    @order = Order.new(order_params)
+    @order = Order.create(order_params)
 
     respond_to do |format|
       if @order.save
-        format.html {redirect_to menu_path(@order.id), notice: 'Menu was successfuly created'}
+        format.html {redirect_to order_path(@order.id), notice: 'Menu was successfuly created'}
       else
-        format.json {render :new}
+        format.html {render :new}
         format.json {render @order.errors, status: :unprocessable_entity}
       end
     end
   end
 
   def update
+    order_params = get_order_params
+    @order = Order.find_by_id(params[:id])
+
+    respond_to do |format|
+      if @order.update(order_params)
+        format.html {redirect_to @order, status: :see_other, notice: 'Order was successfuly udpated'}
+        # format.json {render :update, status: :no_content}
+      else
+        format.html{render :edit, status: :unprocessable_entity}
+        format.json {render @order.errors, status: :unprocessable_entity}
+      end
+    end
   end
 
-  def join_all_menus
-    menus.names.join(',')
+  def show
+    @order = Order.find_by_id(params[:id])
+    render :show, status: :ok
   end
 
-  def self.clean_unpaid_orders
-    where.not(status: :PAID)
-    .update_all(status: :CANCELLED)
-  end
-
-  def self.report_daily()
-    where(order_date: DateTime.now.in_time_zone.beginning_of_day..DateTime.now.in_time_zone.end_of_day)
-  end
-
-  def self.get_price
-    menus.map{|menu| menu.prices.sum}
-  end
-
-  # def self.get_report_by_email(:email)
-  # end
-
-  def self.get_report_by_price(price)
-    where(total: price..)
-  end
-
-  def self_get_report_by_range(start, end_)
-    where(order_date: start..end_)
-  end
-  
   private
   def get_order_params
     params.require(:order)
-    .permit(:customer_id, menu_ids: [])
+    .permit(:customer_id, :order_date, :total, menu_ids: [])
   end
 
 
