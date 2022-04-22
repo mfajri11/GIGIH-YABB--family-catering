@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Menu, type: :model do
+  let(:cat1){FactoryBot.build(:category)}
+  let(:cat2){FactoryBot.build(:category)}
   
   it 'has valid factory' do
     expect(FactoryBot.build(:menu)).to be_valid
@@ -30,5 +32,11 @@ RSpec.describe Menu, type: :model do
     food = FactoryBot.build(:menu, description: '!'*151)
     food.valid?
     expect(food.errors[:description]).to include('is too long (maximum is 150 characters)')
+  end
+
+  it 'has more than one cateogry' do
+    food = FactoryBot.build(:menu)
+    food.categories << [cat1, cat2]
+    expect(food.categories).to match_array([cat1, cat2])
   end
 end

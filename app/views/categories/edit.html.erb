@@ -1,0 +1,17 @@
+<div class="bg-light text-dark shadow-sm p-3 mb-5"> 
+  <p></p>
+  <h1>Edit category</h1>
+</div>
+
+<div class="container">
+<h1>Editing <%= @category.name %>'s post</h1>
+
+<%= render "form", category: @category %>
+
+<br>
+
+<div>
+  <%= link_to "Show this cateogry", @category %> |
+  <%= link_to "Back to categories", categories_path %>
+</div>
+</div>

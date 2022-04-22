@@ -1,0 +1,10 @@
+<div class="bg-light text-dark shadow-sm p-3 mb-5">
+  <p class="text-success"><%= notice %></p>  
+  <h1>Orders</h1>
+</div>
+
+<div class="container">
+  <%= render 'tables', orders: @orders %>
+
+  <%= link_to "create order", new_order_path, class: "btn btn-primary mt-4" %>
+</div>

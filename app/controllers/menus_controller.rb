@@ -5,11 +5,13 @@ class MenusController < ApplicationController
   end
   
   def new
+    @menu = Menu.new
+    @categories = Category.all
   end
 
   def create
     menu_params = get_menu_params
-    @menu = Menu.create(menu_params)
+    @menu = Menu.new(menu_params)
     respond_to do |format|
       if @menu.save
         format.html {redirect_to menu_path(@menu.id), notice: 'Menu was successfuly created'}
@@ -66,7 +68,12 @@ class MenusController < ApplicationController
   private
   
   def get_menu_params
-    params.require(:menu).permit(:name, :description, :price)
+    params.require(:menu)
+    .permit(
+      :name, 
+      :description, 
+      :price,
+    category_ids:[])
   end
   
 end

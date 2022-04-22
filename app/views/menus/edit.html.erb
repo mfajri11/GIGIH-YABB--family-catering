@@ -1,2 +1,17 @@
-<h1>Menus#edit</h1>
-<p>Find me in app/views/menus/edit.html.erb</p>
+<div class="bg-light text-dark shadow-sm p-3 mb-5"> 
+  <p></p>
+  <h1>Edit menu</h1>
+</div>
+
+<div class="container">
+<h1>Editing <%= @menu.name %>'s post</h1>
+
+<%= render "form", menu: @menu %>
+
+<br>
+
+<div>
+  <%= link_to "Show this menu", @menu %> |
+  <%= link_to "Back to menus", menus_path %>
+</div>
+</div>

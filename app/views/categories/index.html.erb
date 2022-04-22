@@ -1,0 +1,14 @@
+<div class="bg-light text-dark shadow-sm p-3 mb-5">
+  <p class="text-success"><%= notice %></p>  
+  <h1>Categories</h1>
+</div>
+
+<div class="container">
+  <div class="list-group">
+    <% @categories.each do |category| %>
+      
+  <a href=<%= "categories/#{category.id}" %> class="list-group-item list-group-item-action"><%= category.name %> </a>
+      <% end %>
+</div>
+  <%= link_to "add category", new_category_path, class: "btn btn-primary mt-4" %>
+</div>

@@ -1,2 +1,14 @@
-<h1>Menus#show</h1>
-<p>Find me in app/views/menus/show.html.erb</p>
+<div class="bg-light text-dark shadow-sm p-3 mb-5">
+  <p class="text-success"><%= notice %></p>  
+  <h1>Detail Posts</h1>
+</div>
+<div class="container p-5 text-dark" style="min-heigh: 100%;">
+<%= render @menu %>
+
+ <div>
+   <%= link_to "Edit this menu", edit_menu_path(@menu) %> |
+   <%= link_to "Back to menus", menus_path %>
+
+   <%= button_to "Destroy this post", @menu, method: :delete, class: "btn btn-danger mt-2" %>
+ </div>
+</div>

@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">order_id</th>
+      <th scope="col">customer_id</th>
+      <th scope="col">menus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+    <tr>
+      <th scope="row">1</th>
+      <td><%= order.id %></td>
+      <td><%= order.customer.name %></td>
+      <td><%= order.join_all_menus %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
