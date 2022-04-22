@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'cusomters/new'
+  get 'cusomters/create'
   # get 'menus/index'
   # get 'menus/new'
   # get 'menus/show'

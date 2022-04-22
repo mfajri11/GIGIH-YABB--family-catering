@@ -1,6 +1,14 @@
 class OrdersController < ApplicationController
   def create
-    customer_id = params[:customer_id]
+    order_params = get_order_params
+    @order = Order.create(order_params)
+
+    respond_to do |format|
+      if @order.save
+        format.html {redirect_to menu_path(@order.id), notice: 'Menu was successfuly created'}
+      end
+    end
+    
   end
 
 
