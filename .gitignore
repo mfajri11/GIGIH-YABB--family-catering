@@ -7,6 +7,13 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore some hidden file
+/.upm
+/.lesson
+/.cache
+/.config
+/.bundle
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-*
